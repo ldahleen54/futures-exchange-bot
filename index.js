@@ -24,11 +24,15 @@ connection.connect(err => {
   console.log('Connected to the database successfully!');
 });
 
+connection.query('CREATE DATABASE IF NOT EXISTS `Futures`', (err, result) => {
+	if (err) throw err;
+	console.log("Database created or already exists.");
+  });
 // Simple query example
-connection.query('SELECT 1 + 1 AS solution', (err, results, fields) => {
-  if (err) throw err;
-  console.log('The solution is: ', results[0].solution);
-});
+// connection.query('SELECT 1 + 1 AS solution', (err, results, fields) => {
+//   if (err) throw err;
+//   console.log('The solution is: ', results[0].solution);
+// });
 
 // Close the connection
 connection.end();
