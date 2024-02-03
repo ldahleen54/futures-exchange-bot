@@ -10,8 +10,7 @@ const connection = mysql.createConnection({
   host     : 'database-1.cqiwllz59ycr.us-east-2.rds.amazonaws.com',
   port     : process.env.DB_PORT,
   user     : process.env.DB_USERNAME,
-  password : process.env.DB_PASSWORD,
-  database : 'database-1'
+  password : process.env.DB_PASSWORD
 });
 console.log("Username " + process.env.DB_USERNAME);
 console.log("Password " + process.env.DB_PASSWORD);
