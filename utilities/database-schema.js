@@ -14,7 +14,7 @@ connection.connect(err => {
     return;
   }
   console.log('Connected to the database successfully!');
-});const mysql = require('mysql');
+});
 
 const createUsersTable = `
 CREATE TABLE IF NOT EXISTS Users (
