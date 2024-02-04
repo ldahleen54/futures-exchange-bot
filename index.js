@@ -1,4 +1,3 @@
-// Require the necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
@@ -13,9 +12,6 @@ const connection = mysql.createConnection({
   database : 'Futures',
   password : process.env.DB_PASSWORD
 });
-console.log("Username " + process.env.DB_USERNAME);
-console.log("Password " + process.env.DB_PASSWORD);
-console.log("Port " + process.env.DB_PORT);
 
 connection.connect(err => {
   if (err) {
@@ -24,16 +20,6 @@ connection.connect(err => {
   }
   console.log('Connected to the database successfully!');
 });
-
-// connection.query('CREATE DATABASE IF NOT EXISTS `Futures`', (err, result) => {
-// 	if (err) throw err;
-// 	console.log("Database created or already exists.");
-//   });
-// Simple query example
-// connection.query('SELECT 1 + 1 AS solution', (err, results, fields) => {
-//   if (err) throw err;
-//   console.log('The solution is: ', results[0].solution);
-// });
 
 // Close the connection
 connection.end();
