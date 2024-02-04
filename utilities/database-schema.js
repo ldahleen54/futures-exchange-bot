@@ -16,8 +16,21 @@ connection.connect(err => {
   console.log('Connected to the database successfully!');
 });
 
+// show tables
+const showTables = `
+SHOW TABLES;
+`;
+
+connection.query(showTables, (err, results) => {
+  if (err) {
+    console.error('Error creating Users table:', err);
+    return;
+  }
+  console.log('Tables: ' + JSON.stringify(results));
+});
+
 const createUsersTable = `
-CREATE TABLE IF NOT EXISTS Users (
+CREATE OR REPLACE TABLE Users (
   UserId INT AUTO_INCREMENT PRIMARY KEY,
   InGameName VARCHAR(255) NOT NULL UNIQUE,
   DiscordId VARCHAR(255) NOT NULL UNIQUE,
@@ -36,7 +49,7 @@ connection.query(createUsersTable, (err, results) => {
 });
 
 const createOrdersTable = `
-CREATE TABLE IF NOT EXISTS Orders (
+CREATE OR REPLACE TABLE Orders (
   OrderId INT AUTO_INCREMENT PRIMARY KEY,
   FOREIGN KEY (UserId) REFERENCES Users(UserId),
   OrderDate DATETIME NOT NULL
