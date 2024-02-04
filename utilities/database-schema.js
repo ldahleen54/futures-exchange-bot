@@ -38,7 +38,7 @@ connection.query(createUsersTable, (err, results) => {
 const createOrdersTable = `
 CREATE TABLE IF NOT EXISTS Orders (
   OrderId INT AUTO_INCREMENT PRIMARY KEY,
-  FOREIGN KEY (OrderId) REFERENCES Users(OrderId),
+  FOREIGN KEY (UserId) REFERENCES Users(UserId),
   OrderDate DATETIME NOT NULL
 );`;
 
@@ -53,4 +53,4 @@ connection.query(createOrdersTable, (err, results) => {
 
 
 
-connection.end(); // Close the connection when done
+connection.end();
