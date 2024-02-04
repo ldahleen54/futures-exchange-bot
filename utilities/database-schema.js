@@ -1,3 +1,5 @@
+const mysql = require('mysql');
+require('dotenv/config');
 const connection = mysql.createConnection({
     host     : 'database-1.cqiwllz59ycr.us-east-2.rds.amazonaws.com',
     port     : process.env.DB_PORT,
@@ -12,7 +14,7 @@ connection.connect(err => {
     return;
   }
   console.log('Connected to the database successfully!');
-});
+});const mysql = require('mysql');
 
 const createUsersTable = `
 CREATE TABLE IF NOT EXISTS Users (
