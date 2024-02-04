@@ -16,7 +16,17 @@ connection.connect(err => {
   console.log('Connected to the database successfully!');
 });
 
-// show tables
+const dropTables = `
+  DROP TABLE IF EXISTS Orders, Users, Futures
+`
+connection.query(dropTables, (err, results) => {
+  if (err) {
+    console.error('Error Dropping tables:', err);
+    return;
+  }
+  console.log('Dropped tables: ' + JSON.stringify(results));
+});
+
 const showTables = `
 SHOW TABLES;
 `;
@@ -30,7 +40,7 @@ connection.query(showTables, (err, results) => {
 });
 
 const createUsersTable = `
-CREATE OR REPLACE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users (
   UserId INT AUTO_INCREMENT PRIMARY KEY,
   InGameName VARCHAR(255) NOT NULL UNIQUE,
   DiscordId VARCHAR(255) NOT NULL UNIQUE,
@@ -49,7 +59,7 @@ connection.query(createUsersTable, (err, results) => {
 });
 
 const createOrdersTable = `
-CREATE OR REPLACE TABLE Orders (
+CREATE TABLE IF NOT EXISTS Orders (
   OrderId INT AUTO_INCREMENT PRIMARY KEY,
   FOREIGN KEY (UserId) REFERENCES Users(UserId),
   OrderDate DATETIME NOT NULL
@@ -62,8 +72,5 @@ connection.query(createOrdersTable, (err, results) => {
   }
   console.log('Orders table created or already exists.' + JSON.stringify(results));
 });
-
-
-
 
 connection.end();
