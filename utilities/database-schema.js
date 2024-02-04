@@ -55,7 +55,7 @@ connection.query(createUsersTable, (err, results) => {
     console.error('Error creating Users table:', err);
     return;
   }
-  console.log('Users table already exists' + results);
+  console.log('Creating users table' + JSON.stringify(results));
 });
 
 const checkUsersTable = `
@@ -66,7 +66,7 @@ connection.query(checkUsersTable, (err, results) => {
     console.error('Error showing Users table:', err);
     return;
   }
-  console.log('Showing users table' + results);
+  console.log('Showing users table' + JSON.stringify(results));
 });
 
 const createOrdersTable = `
