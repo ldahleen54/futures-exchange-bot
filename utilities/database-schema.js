@@ -17,7 +17,7 @@ connection.connect(err => {
 });
 
 const dropTables = `
-  DROP TABLE IF EXISTS Orders, Users, Futures
+  DROP TABLE IF EXISTS Orders, Users, Futures, FutureContracts
 `
 connection.query(dropTables, (err, results) => {
   if (err) {
@@ -72,7 +72,8 @@ connection.query(checkUsersTable, (err, results) => {
 const createOrdersTable = `
 CREATE TABLE IF NOT EXISTS Orders (
   OrderId INT AUTO_INCREMENT PRIMARY KEY,
-  FOREIGN KEY (UserId) REFERENCES Users(UserId),
+  OrderUserId INT NOT NULL,
+  FOREIGN KEY (OrderUserId) REFERENCES Users(UserId),
   OrderDate DATETIME NOT NULL
 );`;
 
