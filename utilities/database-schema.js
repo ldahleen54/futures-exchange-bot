@@ -55,7 +55,18 @@ connection.query(createUsersTable, (err, results) => {
     console.error('Error creating Users table:', err);
     return;
   }
-  console.log('Users table created or already exists.');
+  console.log('Users table already exists' + results);
+});
+
+const checkUsersTable = `
+  SELECT * FROM Users;
+`
+connection.query(checkUsersTable, (err, results) => {
+  if (err) {
+    console.error('Error showing Users table:', err);
+    return;
+  }
+  console.log('Showing users table' + results);
 });
 
 const createOrdersTable = `
@@ -67,7 +78,7 @@ CREATE TABLE IF NOT EXISTS Orders (
 
 connection.query(createOrdersTable, (err, results) => {
   if (err) {
-    console.error('Error creating Users table:', err);
+    console.error('Error creating Orders table:', err);
     return;
   }
   console.log('Orders table created or already exists.' + JSON.stringify(results));
