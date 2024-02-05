@@ -48,5 +48,8 @@ const runQuery = (query, parameters) => {
   }
 }
 
-module.exports(showTables, runQuery)
+module.exports = {
+  showTables,
+  runQuery
+};
 
