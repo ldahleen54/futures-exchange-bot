@@ -7,7 +7,7 @@ require('dotenv/config');
 (async() => {
 	let userResults = null;
 	userResults = await users.listUsers();
-	console.log("user results before" + userResults);
+	console.log("user results before" + JSON.stringify(userResults));
 })();
 console.log('adding user' + JSON.stringify(users.addUser({
 	inGameName: 'ingamename',
@@ -18,7 +18,7 @@ console.log('adding user' + JSON.stringify(users.addUser({
 (async() => {
 	let userResults = null;
 	userResults = await users.listUsers();
-	console.log("user results after" + userResults);
+	console.log("user results after" + JSON.stringify(userResults));
 })();
 console.log('users:' + JSON.stringify(users));
 
