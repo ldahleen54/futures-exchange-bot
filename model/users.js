@@ -24,7 +24,9 @@ const listUsers = async () => {
     const listUserQuery = `
         SELECT * FROM Users;
     `;
-    return await dbQuery.runQuery(listUserQuery);
+    let listedUsers = dbQuery.runQuery(listUserQuery);
+    console.log("listed users" + listedUsers);
+    return listedUsers;
 }
 //check user next
 module.exports = {
