@@ -1,12 +1,12 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const mysql = require('mysql');
 const users = require('./model/users.js');
 require('dotenv/config');
 
 console.log('users' + users.listUsers());
 console.log('adding user' + users.addUser({
+	inGameName: 'ingamename',
 	discordName: 'discordname',
 	discordId: 'discordId',
 	settledBalance: 5

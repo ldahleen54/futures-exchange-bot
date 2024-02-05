@@ -16,7 +16,7 @@ const addUser = (user) => {
             ?
         )
     `;
-    const parameters = [user.inGameName, user.discordId, user.discordName, user.SettledBalance];
+    const parameters = [user.inGameName, user.discordId, user.discordName, user.settledBalance];
     return dbQuery.runQuery(addUserQuery, parameters);
 }
 
