@@ -4,7 +4,7 @@ const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const users = require('./model/users.js');
 require('dotenv/config');
 
-let users = await users.listUsers();
+let userResults = await users.listUsers();
 console.log('users' + JSON.stringify(users));
 console.log('adding user' + JSON.stringify(users.addUser({
 	inGameName: 'ingamename',
@@ -12,7 +12,7 @@ console.log('adding user' + JSON.stringify(users.addUser({
 	discordId: 'discordId',
 	settledBalance: 5
 })));
-users = await users.listUsers();
+userResults = await users.listUsers();
 console.log('users:' + JSON.stringify(users));
 
 
