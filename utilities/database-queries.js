@@ -31,28 +31,27 @@ const showTables = () => {
 }
 
 const runQuery = async (query, parameters) => {
-  let resultsFromQuery;
-  if (parameters !== undefined && parameters !== null) {    
-    await connection.query(query, parameters, (err, results) => {
-      if (err) {
-        throw new Error(err);
-      }
-      console.log("query result with param" + JSON.stringify(results));
-      resultsFromQuery = results;
-      return;
-    });
-    return resultsFromQuery;
-  } else {
-    await connection.query(query, (err, results) => {
-      if (err) {
-        throw new Error(err);
-      }
-      console.log("query results without params" + JSON.stringify(results));
-      resultsFromQuery = results;
-      return results;
-    });
-    return resultsFromQuery;
-  }
+  return new Promise((resolve, reject) => {
+    if (parameters !== undefined && parameters !== null) {
+      connection.query(query, parameters, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log("query result with param" + JSON.stringify(results));
+          resolve(results);
+        }
+      });
+    } else {
+      connection.query(query, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log("query results without params" + JSON.stringify(results));
+          resolve(results);          
+        }
+      });  
+    }
+  });
 }
 
 module.exports = {
