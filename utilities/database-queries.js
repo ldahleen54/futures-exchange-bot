@@ -32,14 +32,14 @@ const showTables = () => {
 
 const runQuery = (query, parameters) => {
   if (parameters !== undefined && parameters !== null) {
-    connection.query(query, parameters, (err, results) => {
+    return connection.query(query, parameters, (err, results) => {
       if (err) {
         throw new Error(err);
       }
       return results;
     });
   } else {
-    connection.query(query, (err, results) => {
+    return connection.query(query, (err, results) => {
       if (err) {
         throw new Error(err);
       }
