@@ -25,4 +25,7 @@ const listUsers = () => {
     return dbQuery.runQuery(listUserQuery);
 }
 //check user next
-module.exports(addUser, listUsers);
+module.exports = {
+    addUser,
+    listUsers
+};
