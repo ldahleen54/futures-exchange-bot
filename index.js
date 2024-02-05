@@ -4,14 +4,14 @@ const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const users = require('./model/users.js');
 require('dotenv/config');
 
-console.log('users' + users.listUsers());
-console.log('adding user' + users.addUser({
+console.log('users' + JSON.stringify(users.listUsers()));
+console.log('adding user' + JSON.stringify(users.addUser({
 	inGameName: 'ingamename',
 	discordName: 'discordname',
 	discordId: 'discordId',
 	settledBalance: 5
-}));
-console.log('users:' + users.listUsers());
+})));
+console.log('users:' + JSON.stringify(users.listUsers()));
 
 
 // Create a new client instance
