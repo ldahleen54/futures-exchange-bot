@@ -4,6 +4,7 @@ const dbQuery = require('../utilities/database-queries.js');
 const addUser = (user) => {
     let addUserQuery = `
         INSERT INTO Users (InGameName, 
+            InGameName,
             DiscordId,
             DiscordName,
             SettledBalance
@@ -11,10 +12,11 @@ const addUser = (user) => {
         VALUES (
             ?,
             ?,
+            ?,
             ?
         )
     `;
-    const parameters = [user.discordId, user.discordName, user.SettledBalance];
+    const parameters = [user.inGameName, user.discordId, user.discordName, user.SettledBalance];
     return dbQuery.runQuery(addUserQuery, parameters);
 }
 
