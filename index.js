@@ -5,7 +5,7 @@ const users = require('./model/users.js');
 require('dotenv/config');
 
 let userResults = (async() => {
-	await users.listUsers();
+	return await users.listUsers();
 })();
 console.log('users' + JSON.stringify(users));
 console.log('adding user' + JSON.stringify(users.addUser({
