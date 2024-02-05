@@ -3,7 +3,7 @@ const dbQuery = require('../utilities/database-queries.js');
 // pass user object
 const addUser = (user) => {
     let addUserQuery = `
-        INSERT INTO Users (InGameName, 
+        INSERT INTO Users ( 
             InGameName,
             DiscordId,
             DiscordName,
