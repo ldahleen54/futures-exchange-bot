@@ -30,16 +30,16 @@ const showTables = () => {
   }
 }
 
-const runQuery = (query, parameters) => {
+const runQuery = async (query, parameters) => {
   if (parameters !== undefined && parameters !== null) {
-    return connection.query(query, parameters, (err, results) => {
+    return await connection.query(query, parameters, (err, results) => {
       if (err) {
         throw new Error(err);
       }
       return results;
     });
   } else {
-    return connection.query(query, (err, results) => {
+    return await connection.query(query, (err, results) => {
       if (err) {
         throw new Error(err);
       }

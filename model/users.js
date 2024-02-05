@@ -1,7 +1,7 @@
 const dbQuery = require('../utilities/database-queries.js');
 
 // pass user object
-const addUser = (user) => {
+const addUser = async (user) => {
     let addUserQuery = `
         INSERT INTO Users ( 
             InGameName,
@@ -17,14 +17,14 @@ const addUser = (user) => {
         )
     `;
     const parameters = [user.inGameName, user.discordId, user.discordName, user.settledBalance];
-    return dbQuery.runQuery(addUserQuery, parameters);
+    return await dbQuery.runQuery(addUserQuery, parameters);
 }
 
-const listUsers = () => {
+const listUsers = async () => {
     const listUserQuery = `
         SELECT * FROM Users;
     `;
-    return dbQuery.runQuery(listUserQuery);
+    return await dbQuery.runQuery(listUserQuery);
 }
 //check user next
 module.exports = {
