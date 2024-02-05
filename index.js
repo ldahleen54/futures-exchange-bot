@@ -2,27 +2,17 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const mysql = require('mysql');
+const users = require('./model/users.js');
 require('dotenv/config');
 
-// Configure MySQL connection
-const connection = mysql.createConnection({
-  host     : 'database-1.cqiwllz59ycr.us-east-2.rds.amazonaws.com',
-  port     : process.env.DB_PORT,
-  user     : process.env.DB_USERNAME,
-  database : 'Futures',
-  password : process.env.DB_PASSWORD
-});
+console.log('users' + users.listUsers());
+console.log('adding user' + users.addUser({
+	discordName: 'discordname',
+	discordId: 'discordId',
+	settledBalance: 5
+}));
+console.log('users:' + users.listUsers());
 
-connection.connect(err => {
-  if (err) {
-    console.error('An error occurred while connecting to the DB:', err);
-    return;
-  }
-  console.log('Connected to the database successfully!');
-});
-
-// Close the connection
-connection.end();
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
