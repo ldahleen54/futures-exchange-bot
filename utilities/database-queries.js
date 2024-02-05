@@ -36,6 +36,7 @@ const runQuery = async (query, parameters) => {
       if (err) {
         throw new Error(err);
       }
+      console.log("query result with param" + JSON.stringify(results));
       return results;
     });
   } else {
@@ -43,6 +44,7 @@ const runQuery = async (query, parameters) => {
       if (err) {
         throw new Error(err);
       }
+      console.log("query results without params" + JSON.stringify(results));
       return results;
     });
   }
