@@ -29,7 +29,7 @@ const addUser = async (user) => {
         )
     `;
     const parameters = [user.inGameName, user.discordId, user.discordName, user.settledBalance];
-    console.log("check user" + JSON.stringify(checkUser()))
+    console.log("check user" + JSON.stringify(checkUser(user)));
     if (checkUser(user)) {
         return null;
     }
