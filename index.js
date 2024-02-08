@@ -9,12 +9,16 @@ require('dotenv/config');
 	userResults = await users.listUsers();
 	console.log("user results before" + JSON.stringify(userResults));
 })();
-console.log('adding user' + JSON.stringify(users.addUser({
-	inGameName: 'ingamename',
-	discordName: 'discordname',
-	discordId: 'discordId',
-	settledBalance: 5
-})));
+(async() => {
+	let userResults = null;
+	userResults = await users.addUser({
+		inGameName: 'ingamename',
+		discordName: 'discordname',
+		discordId: 'discordId',
+		settledBalance: 5
+	});
+	console.log('adding user' + JSON.stringify(userResults));
+})();
 (async() => {
 	let userResults = null;
 	userResults = await users.listUsers();

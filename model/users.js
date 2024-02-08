@@ -1,8 +1,20 @@
 const dbQuery = require('../utilities/database-queries.js');
 
-// pass user object
+// returns true or false whether user already exists
+const checkUser = async (user) => {
+    const checkUserQuery = `
+        SELECT EXISTS (
+            SELECT 1 FROM Users WHERE InGameName = ?  
+        ) AS userExists;
+    `;
+    const parameters = [user.inGameName]
+    let results = await dbQuery.runQuery(checkUserQuery, parameters);
+    return results[0].userExists;
+}
+
+// add user returns null if user already exists
 const addUser = async (user) => {
-    let addUserQuery = `
+    const addUserQuery = `
         INSERT INTO Users ( 
             InGameName,
             DiscordId,
@@ -17,6 +29,10 @@ const addUser = async (user) => {
         )
     `;
     const parameters = [user.inGameName, user.discordId, user.discordName, user.settledBalance];
+    console.log("check user" + JSON.stringify(checkUser()))
+    if (checkUser()) {
+        return null;
+    }
     return await dbQuery.runQuery(addUserQuery, parameters);
 }
 

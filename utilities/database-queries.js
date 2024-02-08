@@ -16,9 +16,6 @@ connection.connect(err => {
   console.log('Connected to the database successfully!');
 });
 
-
-
-
 const showTablesQuery = `
   SHOW TABLES;
 `;
@@ -37,7 +34,7 @@ const runQuery = async (query, parameters) => {
         if (err) {
           reject(err);
         } else {
-          console.log("query result with param" + JSON.stringify(results));
+          console.log("query results with params" + JSON.stringify(results));
           resolve(results);
         }
       });
