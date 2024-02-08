@@ -13,7 +13,7 @@ const replaceUser = async (inGameName) => {
     return null;
 }
 
-// returns result from checkUserQuery
+// returns true if user exists already
 const checkUser = async (user) => {
     const checkUserQuery = `
         SELECT EXISTS (
@@ -22,7 +22,7 @@ const checkUser = async (user) => {
     `;
     const parameters = [user.inGameName];
     let results = await dbQuery.runQuery(checkUserQuery, parameters);
-    return results[0].userExists;
+    return results[0].userExists === 0 ? false : true;
 }
 
 // add user returns null if user already exists
@@ -43,7 +43,7 @@ const addUser = async (user) => {
     `;
     const parameters = [user.inGameName, user.discordId, user.discordName, user.settledBalance];
     console.log("check user" + JSON.stringify(checkUser(user)));
-    if (checkUser(user)) {
+    if (checkUser(user) === true) {
         return null;
     }
     return await dbQuery.runQuery(addUserQuery, parameters);
