@@ -59,6 +59,7 @@ const listUsers = async () => {
 }
 //check user next
 module.exports = {
+    removeUser,
     addUser,
     listUsers
 };
