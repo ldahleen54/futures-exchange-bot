@@ -30,7 +30,7 @@ const addUser = async (user) => {
     `;
     const parameters = [user.inGameName, user.discordId, user.discordName, user.settledBalance];
     console.log("check user" + JSON.stringify(checkUser()))
-    if (checkUser()) {
+    if (checkUser(user)) {
         return null;
     }
     return await dbQuery.runQuery(addUserQuery, parameters);
