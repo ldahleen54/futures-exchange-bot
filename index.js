@@ -9,6 +9,16 @@ require('dotenv/config');
 	userResults = await users.listUsers();
 	console.log("user results before" + JSON.stringify(userResults));
 })();
+(async () => {
+	let userResults = null;
+	userResults = await users.removeUser({
+		inGameName: 'ingamename',
+		discordName: 'discordname',
+		discordId: 'discordId',
+		settledBalance: 5
+	});
+	console.log("remove user result " + JSON.stringify(userResults));
+})();
 (async() => {
 	let userResults = null;
 	userResults = await users.addUser({

@@ -1,13 +1,26 @@
 const dbQuery = require('../utilities/database-queries.js');
 
-// returns true or false whether user already exists
+const removeUser = async (user) => {
+    const removeUserQuery = `
+        DELETE FROM Users WHERE InGameName = ?
+    `;
+    const parameters = [user.inGameName];
+    return await dbQuery.runQuery(removeUserQuery, parameters);
+}
+
+// TODO replace user in case the inGameName is incorrect
+const replaceUser = async (inGameName) => {
+    return null;
+}
+
+// returns result from checkUserQuery
 const checkUser = async (user) => {
     const checkUserQuery = `
         SELECT EXISTS (
             SELECT 1 FROM Users WHERE InGameName = ?  
         ) AS userExists;
     `;
-    const parameters = [user.inGameName]
+    const parameters = [user.inGameName];
     let results = await dbQuery.runQuery(checkUserQuery, parameters);
     return results[0].userExists;
 }
