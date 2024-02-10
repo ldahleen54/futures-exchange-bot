@@ -14,18 +14,29 @@ const replaceUser = async (inGameName) => {
 }
 
 // returns true if user exists already
-const checkUser = async (user) => {
-    const checkUserQuery = `
+const inGameNameExists = async (inGameName) => {
+    const query = `
         SELECT EXISTS (
             SELECT 1 FROM Users WHERE InGameName = ?  
         ) AS userExists;
     `;
-    const parameters = [user.inGameName];
-    let results = await dbQuery.runQuery(checkUserQuery, parameters);
+    const parameters = [inGameName];
+    let results = await dbQuery.runQuery(query, parameters);
     return results[0].userExists === 0 ? false : true;
 }
 
-// add user returns null if user already exists
+const discordNameExists = async (discordName) => {
+    const query = `
+        SELECT EXISTS (
+            SELECT 1 FROM Users WHERE DiscordName = ?  
+        ) AS userExists;
+    `;
+    const parameters = [discordName];
+    let results = await dbQuery.runQuery(query, parameters);
+    return results[0].userExists === 0 ? false : true;
+}
+
+// returns null if user already exists
 const addUser = async (user) => {
     const addUserQuery = `
         INSERT INTO Users ( 
@@ -42,8 +53,8 @@ const addUser = async (user) => {
         )
     `;
     const parameters = [user.inGameName, user.discordId, user.discordName, user.settledBalance];
-    console.log("check user" + JSON.stringify(checkUser(user)));
-    if (checkUser(user) === true) {
+    console.log("check if in game name exists" + JSON.stringify(inGameNameExists(user.inGameName)));
+    if (inGameNameExists(user.inGameName) === true || discordNameExists(user.discordName) === true) {
         return null;
     }
     return await dbQuery.runQuery(addUserQuery, parameters);
@@ -61,5 +72,7 @@ const listUsers = async () => {
 module.exports = {
     removeUser,
     addUser,
-    listUsers
+    listUsers,
+    inGameNameExists,
+    discordNameExists
 };
