@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const users = require('../model/users.js');
+const users = require('../../model/users.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('register')
