@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS Orders (
   Expiration DATE NOT NULL,
   StrikePrice DECIMAL(50,4),
   Quantity INT NOT NULL,
-  PREMIUM DECIMAL(50,4) NOT NULL
+  Premium DECIMAL(50,4) NOT NULL
 );`;
 
 connection.query(createFuturesTable, (err, results) => {
