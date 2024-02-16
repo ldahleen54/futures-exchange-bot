@@ -16,7 +16,7 @@ module.exports = {
 			discordId: interaction.user.id,
 			settledBalance: 0
 		};
-		if (!users.inGameName(interaction.options.getString('ingamename'))) {
+		if (!users.inGameNameExists(interaction.options.getString('ingamename')) && !users.discordNameExists(interaction.options.getString('discordname'))) {
 			try {
 				users.addUser(newUser);
 			} catch (error) {
@@ -25,7 +25,7 @@ module.exports = {
 			}
 			await interaction.reply('Registered with the new name');
 		} else {
-			await interaction.reply('User is already registered witht that in-game name');
+			await interaction.reply('User is already registered with that in-game name');
 		}
 	},
 };
