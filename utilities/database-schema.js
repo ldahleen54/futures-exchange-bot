@@ -85,4 +85,23 @@ connection.query(createOrdersTable, (err, results) => {
   console.log('Orders table created or already exists.' + JSON.stringify(results));
 });
 
+const createFuturesTable = `
+CREATE TABLE IF NOT EXISTS Orders (
+  FutureId INT AUTO_INCREMENT PRIMARY KEY,
+  Ticker VARCHAR(255) NOT NULL,
+  ItemName VARCHAR(255) NOT NULL,
+  Expiration DATE NOT NULL,
+  StrikePrice DECIMAL(50,4),
+  Quantity INT NOT NULL,
+  PREMIUM DECIMAL(50,4) NOT NULL
+);`;
+
+connection.query(createFuturesTable, (err, results) => {
+  if (err) {
+    console.error('Error creating Futures table:', err);
+    return;
+  }
+  console.log('Futures table created or already exists.' + JSON.stringify(results));
+});
+
 connection.end();

@@ -25,7 +25,7 @@ module.exports = {
 			}
 			await interaction.reply('Registered with the new name');
 		} else {
-			await interaction.reply('User is already registered with that in-game name');
+			await interaction.reply(`User is already registered with in-game name: ${interaction.options.getString('ingamename')}`);
 		}
 	},
 };
