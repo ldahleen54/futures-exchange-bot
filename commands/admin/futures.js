@@ -62,7 +62,7 @@ module.exports = {
 						ticker: interaction.options.getString('ticker'),
 						asset: interaction.options.getString('asset'),
 						expiration: interaction.options.getString('expiration'),
-						strikePrice: interaction.options.getNumber('strikePrice'),
+						strikePrice: interaction.options.getNumber('strikeprice'),
 						quantity: interaction.options.getInteger('quantity'),
 						premium: interaction.options.getNumber('premium')
 					};
