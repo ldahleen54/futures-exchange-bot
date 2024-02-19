@@ -53,15 +53,15 @@ module.exports = {
 			await interaction.reply('Unable to list futures.');
 		}
 	},
-	async create(ticker, itemName, expiration, strikePrice, quantity, premium) {
+	async create(interaction) {
 		try {
 			const newFuture = {
-				ticker: ticker,
-				itemName: itemName,
-				expiration: expiration,
-				strikePrice: strikePrice,
-				quantity: quantity,
-				premium: premium
+				ticker: interaction.options.getString('ticker'),
+				asset: interaction.options.getString('asset'),
+				expiration: interaction.options.getString('expiration'),
+				strikePrice: interaction.options.getNumber('strikePrice'),
+				quantity: interaction.options.getInteger('quantity'),
+				premium: interaction.options.getNumber('premium')
 			};
 			futures.addFuture(newFuture);
 			interaction.reply('Created future succesfully');
@@ -69,5 +69,8 @@ module.exports = {
 			console.log("Error: " + JSON.stringify(error));
 			await interaction.reply('Unable to create future.');
 		}
+	},
+	async execute(interaction) {
+		console.log('executing futures');
 	}
 };

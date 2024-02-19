@@ -13,7 +13,7 @@ const addFuture = async (future) => {
     const addFutureQuery = `
         INSERT INTO Futures ( 
             Ticker,
-            ItemName,
+            Asset,
             Expiration,
             StrikePrice,
             Quantity,
@@ -28,7 +28,7 @@ const addFuture = async (future) => {
             ?
         )
     `;
-    const parameters = [future.ticker, future.itemName, future.expiration, future.strikePrice, future.quantity, future.premium];
+    const parameters = [future.ticker, future.asset, future.expiration, future.strikePrice, future.quantity, future.premium];
     const tickerExists = tickerExists(future.ticker); 
     console.log("check if ticker exists" + tickerExists);
     if (tickerExists) {

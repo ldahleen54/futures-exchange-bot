@@ -89,7 +89,7 @@ const createFuturesTable = `
 CREATE TABLE IF NOT EXISTS Orders (
   FutureId INT AUTO_INCREMENT PRIMARY KEY,
   Ticker VARCHAR(255) NOT NULL,
-  ItemName VARCHAR(255) NOT NULL,
+  Asset VARCHAR(255) NOT NULL,
   Expiration DATE NOT NULL,
   StrikePrice DECIMAL(50,4),
   Quantity INT NOT NULL,
