@@ -43,34 +43,37 @@ module.exports = {
 				.setName('list')
 				.setDescription('List existing futures.')
 		),
-	async list() {
-		try {
-			const futureList = futures.listFutures();
-			interaction.reply('List of futures' + JSON.stringify(futureList));
-			console.log('Listing futures' + JSON.stringify(futureList));
-		} catch(error) {
-			console.log("Error: " + JSON.stringify(error));
-			await interaction.reply('Unable to list futures.');
-		}
-	},
-	async create(interaction) {
-		try {
-			const newFuture = {
-				ticker: interaction.options.getString('ticker'),
-				asset: interaction.options.getString('asset'),
-				expiration: interaction.options.getString('expiration'),
-				strikePrice: interaction.options.getNumber('strikePrice'),
-				quantity: interaction.options.getInteger('quantity'),
-				premium: interaction.options.getNumber('premium')
-			};
-			futures.addFuture(newFuture);
-			interaction.reply('Created future succesfully');
-		} catch(error) {
-			console.log("Error: " + JSON.stringify(error));
-			await interaction.reply('Unable to create future.');
-		}
-	},
 	async execute(interaction) {
+		const subCommand = await interaction.options.getSubcommand();
+		switch(subCommand) {
+			case 'list':
+				try {
+					const futureList = futures.listFutures();
+					interaction.reply('List of futures' + JSON.stringify(futureList));
+					console.log('Listing futures' + JSON.stringify(futureList));
+				} catch(error) {
+					console.log("Error: " + JSON.stringify(error));
+					await interaction.reply('Unable to list futures.');
+				}
+				break;
+			case 'create':
+				try {
+					const newFuture = {
+						ticker: interaction.options.getString('ticker'),
+						asset: interaction.options.getString('asset'),
+						expiration: interaction.options.getString('expiration'),
+						strikePrice: interaction.options.getNumber('strikePrice'),
+						quantity: interaction.options.getInteger('quantity'),
+						premium: interaction.options.getNumber('premium')
+					};
+					futures.addFuture(newFuture);
+					interaction.reply('Created future succesfully');
+				} catch(error) {
+					console.log("Error: " + JSON.stringify(error));
+					await interaction.reply('Unable to create future.');
+				}
+				break;
+		}
 		console.log('executing futures');
 	}
 };
