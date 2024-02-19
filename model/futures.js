@@ -40,9 +40,9 @@ const addFuture = async (future) => {
         )
     `;
     const parameters = [future.ticker, future.asset, future.expiration, future.strikePrice, future.quantity, future.premium];
-    const tickerExists = tickerExists(future.ticker); 
-    console.log("check if ticker exists" + tickerExists);
-    if (tickerExists) {
+    const exists = await tickerExists(future.ticker); 
+    console.log("check if ticker exists" + exists);
+    if (exists) {
         return null;
     }
     return await dbQuery.runQuery(addFutureQuery, parameters);
