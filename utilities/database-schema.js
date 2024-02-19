@@ -17,7 +17,7 @@ connection.connect(err => {
 });
 
 const dropTables = `
-  DROP TABLE Orders, Users, Futures, FutureContracts
+  DROP TABLE Orders, Users, Futures
 `
 connection.query(dropTables, (err, results) => {
   if (err) {
@@ -74,7 +74,7 @@ connection.query(createOrdersTable, (err, results) => {
 });
 
 const createFuturesTable = `
-CREATE TABLE Orders (
+CREATE TABLE Futures (
   FutureId INT AUTO_INCREMENT PRIMARY KEY,
   Ticker VARCHAR(255) NOT NULL,
   Asset VARCHAR(255) NOT NULL,
