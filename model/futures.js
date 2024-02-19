@@ -59,8 +59,8 @@ const listFutures = async () => {
 
 
 module.exports = {
+    tickerExists,
     addFuture,
     listFutures,
-    removeFuture,
-    tickerExists
+    removeFuture
 };
