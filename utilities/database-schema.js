@@ -17,7 +17,7 @@ connection.connect(err => {
 });
 
 const dropTables = `
-  DROP TABLE IF EXISTS Orders, Users, Futures, FutureContracts
+  DROP TABLE Orders, Users, Futures, FutureContracts
 `
 connection.query(dropTables, (err, results) => {
   if (err) {
@@ -28,7 +28,7 @@ connection.query(dropTables, (err, results) => {
 });
 
 const createUsersTable = `
-CREATE TABLE IF NOT EXISTS Users (
+CREATE TABLE Users (
   UserId INT AUTO_INCREMENT PRIMARY KEY,
   InGameName VARCHAR(255) NOT NULL UNIQUE,
   DiscordId VARCHAR(255) NOT NULL UNIQUE,
@@ -58,7 +58,7 @@ connection.query(checkUsersTable, (err, results) => {
 });
 
 const createOrdersTable = `
-CREATE TABLE IF NOT EXISTS Orders (
+CREATE TABLE Orders (
   OrderId INT AUTO_INCREMENT PRIMARY KEY,
   OrderUserId INT NOT NULL,
   FOREIGN KEY (OrderUserId) REFERENCES Users(UserId),
@@ -74,7 +74,7 @@ connection.query(createOrdersTable, (err, results) => {
 });
 
 const createFuturesTable = `
-CREATE TABLE IF NOT EXISTS Orders (
+CREATE TABLE Orders (
   FutureId INT AUTO_INCREMENT PRIMARY KEY,
   Ticker VARCHAR(255) NOT NULL,
   Asset VARCHAR(255) NOT NULL,
