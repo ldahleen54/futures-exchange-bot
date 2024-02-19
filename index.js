@@ -54,18 +54,19 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 
 	try {
-		const subCommand = interaction.options.getSubcommand();
-		if(subCommand) {
+		if(command === 'futures') {
+			const subCommand = await interaction.options.getSubcommand();
 			switch(subCommand) {
 				case 'list':
-					command.list();
+					await command.list();
 					break;
 				case 'create':
-					command.create();
+					await command.create();
 					break;
 			}
+		} else {
+			await command.execute(interaction);
 		}
-		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
