@@ -27,18 +27,6 @@ connection.query(dropTables, (err, results) => {
   console.log('Dropped tables: ' + JSON.stringify(results));
 });
 
-const showTables = `
-SHOW TABLES;
-`;
-
-connection.query(showTables, (err, results) => {
-  if (err) {
-    console.error('Error creating Users table:', err);
-    return;
-  }
-  console.log('Tables: ' + JSON.stringify(results));
-});
-
 const createUsersTable = `
 CREATE TABLE IF NOT EXISTS Users (
   UserId INT AUTO_INCREMENT PRIMARY KEY,
@@ -102,6 +90,18 @@ connection.query(createFuturesTable, (err, results) => {
     return;
   }
   console.log('Futures table created or already exists.' + JSON.stringify(results));
+});
+
+const showTables = `
+SHOW TABLES;
+`;
+
+connection.query(showTables, (err, results) => {
+  if (err) {
+    console.error('Error creating Users table:', err);
+    return;
+  }
+  console.log('Tables: ' + JSON.stringify(results));
 });
 
 connection.end();
