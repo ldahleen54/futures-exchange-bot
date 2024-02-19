@@ -8,6 +8,17 @@ const removeFuture = async (ticker) => {
     return await dbQuery.runQuery(removeUserQuery, parameters);
 }
 
+const tickerExists = async (ticker) => {
+    const query = `
+        SELECT EXISTS (
+            SELECT 1 FROM Futures WHERE Ticker = ?  
+        ) AS FutureExists;
+    `;
+    const parameters = [ticker];
+    let results = await dbQuery.runQuery(query, parameters);
+    return results[0].FutureExists === 0 ? false : true;
+}
+
 // returns null if user already exists
 const addFuture = async (future) => {
     const addFutureQuery = `
@@ -35,17 +46,6 @@ const addFuture = async (future) => {
         return null;
     }
     return await dbQuery.runQuery(addFutureQuery, parameters);
-}
-
-const tickerExists = async (ticker) => {
-    const query = `
-        SELECT EXISTS (
-            SELECT 1 FROM Futures WHERE Ticker = ?  
-        ) AS FutureExists;
-    `;
-    const parameters = [ticker];
-    let results = await dbQuery.runQuery(query, parameters);
-    return results[0].FutureExists === 0 ? false : true;
 }
 
 const listFutures = async () => {
