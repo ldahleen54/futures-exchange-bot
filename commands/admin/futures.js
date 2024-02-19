@@ -48,7 +48,7 @@ module.exports = {
 		switch(subCommand) {
 			case 'list':
 				try {
-					const futureList = futures.listFutures();
+					const futureList = await futures.listFutures();
 					interaction.reply('List of futures' + JSON.stringify(futureList));
 					console.log('Listing futures' + JSON.stringify(futureList));
 				} catch(error) {
@@ -66,7 +66,7 @@ module.exports = {
 						quantity: interaction.options.getInteger('quantity'),
 						premium: interaction.options.getNumber('premium')
 					};
-					futures.addFuture(newFuture);
+					await futures.addFuture(newFuture);
 					interaction.reply('Created future succesfully');
 				} catch(error) {
 					console.log("Error: " + JSON.stringify(error));
