@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const users = require('../../model/futures.js');
+const futures = require('../../model/futures.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('futures')
@@ -37,9 +37,37 @@ module.exports = {
 					option
 						.setName('premium')
 						.setDescription('The premium to subtract off of the user buying the contract')
-						.setRequired(true))
+						.setRequired(true)))
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('list')
+				.setDescription('List existing futures.')
 		),
-	async execute() {
-		console.log('execute future comand');
+	async list() {
+		try {
+			const futureList = futures.listFutures();
+			interaction.reply('List of futures' + JSON.stringify(futureList));
+			console.log('Listing futures' + JSON.stringify(futureList));
+		} catch(error) {
+			console.log("Error: " + JSON.stringify(error));
+			await interaction.reply('Unable to list futures.');
+		}
 	},
+	async create(ticker, itemName, expiration, strikePrice, quantity, premium) {
+		try {
+			const newFuture = {
+				ticker: ticker,
+				itemName: itemName,
+				expiration: expiration,
+				strikePrice: strikePrice,
+				quantity: quantity,
+				premium: premium
+			};
+			futures.addFuture(newFuture);
+			interaction.reply('Created future succesfully');
+		} catch(error) {
+			console.log("Error: " + JSON.stringify(error));
+			await interaction.reply('Unable to create future.');
+		}
+	}
 };

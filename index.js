@@ -54,6 +54,17 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 
 	try {
+		const subCommand = interaction.options.getSubcommand();
+		if(subCommand) {
+			switch(subCommand) {
+				case 'list':
+					command.list();
+					break;
+				case 'create':
+					command.create();
+					break;
+			}
+		}
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
