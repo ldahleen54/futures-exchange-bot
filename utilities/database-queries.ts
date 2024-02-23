@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
 })
 
 connection.connect((error: QueryError | null) => {
-  if (error !== undefined) {
+  if (error !== null) {
     console.error('An error occurred while connecting to the DB:', error)
     return
   }
