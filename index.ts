@@ -4,6 +4,7 @@ import path from 'path'
 import { Client, Events, GatewayIntentBits, SlashCommandBuilder, type ChatInputCommandInteraction, type Interaction } from 'discord.js'
 import { listUsers } from './model/users.js'
 
+console.log('testing')
 export interface Command {
   data: SlashCommandBuilder
 	execute: (interaction: ChatInputCommandInteraction) => Promise<void> | void
