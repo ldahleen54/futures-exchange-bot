@@ -1,6 +1,5 @@
-import mysql from 'mysql'
-require('dotenv/config')
-const connection = mysql.createConnection({
+import { createConnection } from 'mysql'
+const connection = createConnection({
   host: 'database-1.cqiwllz59ycr.us-east-2.rds.amazonaws.com',
   port: process.env.DB_PORT !== undefined ? parseInt(process.env.DB_PORT) : 3306,
   user: process.env.DB_USERNAME,
