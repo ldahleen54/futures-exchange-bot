@@ -82,7 +82,7 @@ CREATE TABLE Orders (
   FOREIGN KEY (OrderUserId) REFERENCES Users(UserId),
   OrderDate DATETIME NOT NULL,
   OrderFutureId INT NOT NULL,
-  FOREGIN KEY (OrderFutureId) REFERENCES Futures(FutureId),
+  FOREIGN KEY (OrderFutureId) REFERENCES Futures(FutureId),
   Quantity INT NOT NULL
 );`
 
