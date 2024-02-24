@@ -12,7 +12,11 @@ export interface Command {
 
 void (async () => {
 	let userResults = null
-	userResults = await listUsers()
+	try {
+		userResults = await listUsers()
+	} catch (error) {
+		console.log('erorr' + JSON.stringify(error))
+	}
 	console.log('user results after' + JSON.stringify(userResults))
 })()
 
