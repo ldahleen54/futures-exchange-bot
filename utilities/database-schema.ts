@@ -16,7 +16,7 @@ connection.connect(error => {
 })
 
 const dropTables = `
-  DROP TABLE Orders, Users, Futures
+  DROP TABLE Users, Futures
 `
 connection.query(dropTables, (error, results) => {
   if (error !== undefined) {
@@ -56,25 +56,6 @@ connection.query(checkUsersTable, (error, results) => {
   console.log('Showing users table' + JSON.stringify(results))
 })
 
-const createOrdersTable = `
-CREATE TABLE Orders (
-  OrderId INT AUTO_INCREMENT PRIMARY KEY,
-  OrderUserId INT NOT NULL,
-  FOREIGN KEY (OrderUserId) REFERENCES Users(UserId),
-  OrderDate DATETIME NOT NULL,
-  OrderFutureId INT NOT NULL,
-  FOREGIN KEY (OrderFutureId) REFERENCES Futures(FutureId),
-  Quantity INT NOT NULL
-);`
-
-connection.query(createOrdersTable, (error, results) => {
-  if (error !== undefined) {
-    console.error('Error creating Orders table:', error)
-    return
-  }
-  console.log('Orders table created or already exists.' + JSON.stringify(results))
-})
-
 const createFuturesTable = `
 CREATE TABLE Futures (
   FutureId INT AUTO_INCREMENT PRIMARY KEY,
@@ -92,6 +73,25 @@ connection.query(createFuturesTable, (error, results) => {
     return
   }
   console.log('Futures table created or already exists.' + JSON.stringify(results))
+})
+
+const createOrdersTable = `
+CREATE TABLE Orders (
+  OrderId INT AUTO_INCREMENT PRIMARY KEY,
+  OrderUserId INT NOT NULL,
+  FOREIGN KEY (OrderUserId) REFERENCES Users(UserId),
+  OrderDate DATETIME NOT NULL,
+  OrderFutureId INT NOT NULL,
+  FOREGIN KEY (OrderFutureId) REFERENCES Futures(FutureId),
+  Quantity INT NOT NULL
+);`
+
+connection.query(createOrdersTable, (error, results) => {
+  if (error !== undefined) {
+    console.error('Error creating Orders table:', error)
+    return
+  }
+  console.log('Orders table created or already exists.' + JSON.stringify(results))
 })
 
 const showTables = `
