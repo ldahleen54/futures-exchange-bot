@@ -14,7 +14,6 @@ const showTablesQuery = `
 export const showTables = async (): Promise<void> => {
   try {
     console.log('Showing tables: ' + JSON.stringify(await runQuery(showTablesQuery)))
-    connection.end()
   } catch (error: unknown) {
     console.error('Error showing tables' + String(error))
   }
@@ -24,7 +23,7 @@ export const runQuery = async (query: string, parameters?: Array<string | number
   return await new Promise((resolve, reject) => {
     if (parameters !== undefined) {
       connection.query(query, parameters, (error: QueryError | null, results: RowDataPacket[]) => {
-        if (error !== undefined) {
+        if (error !== null) {
           reject(error)
         } else {
           resolve(results)
@@ -32,7 +31,7 @@ export const runQuery = async (query: string, parameters?: Array<string | number
       })
     } else {
       connection.query(query, (error: QueryError | null, results: RowDataPacket[]) => {
-        if (error !== undefined) {
+        if (error !== null) {
           reject(error)
         } else {
           resolve(results)
