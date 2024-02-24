@@ -1,5 +1,5 @@
 import { runQuery } from '../utilities/database-queries.js'
-import { type User } from '../types/User'
+import { type UserResult, type User } from '../types/User'
 import { type RowDataPacket } from 'mysql'
 
 export const removeUser = async (user: User): Promise<RowDataPacket[]> => {
@@ -33,6 +33,17 @@ export const discordNameExists = async (discordName: string): Promise<boolean> =
   const parameters = [discordName]
   const results = await runQuery(query, parameters)
   return results[0].userExists !== 0
+}
+
+export const getUserIdByDiscordId = async (discordId: string): Promise<number> => {
+  const getUserIdQuery = `
+    SELECT UserId FROM Users WHERE DiscordId = ?;
+  `
+  const parameters = [discordId]
+  const results = await runQuery(getUserIdQuery, parameters)
+  console.log('get user id results' + JSON.stringify(results))
+  const result = results[0] as UserResult
+  return result.UserId
 }
 
 // returns null if user already exists

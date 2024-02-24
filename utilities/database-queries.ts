@@ -8,14 +8,6 @@ const connection = mysql.createConnection({
   password: process.env.DB_PASSWORD
 })
 
-// connection.connect((error: QueryError | null) => {
-//   if (error !== null) {
-//     console.error('An error occurred while connecting to the DB:', error)
-//     return
-//   }
-//   console.log('Connected to the database successfully!')
-// })
-
 const showTablesQuery = `
   SHOW TABLES;
 `

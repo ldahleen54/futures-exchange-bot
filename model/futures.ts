@@ -1,6 +1,6 @@
 import { type RowDataPacket } from 'mysql'
 import { runQuery } from '../utilities/database-queries.js'
-import { type Future } from '../types/Future.js'
+import { type FutureResult, type Future } from '../types/Future.js'
 
 export const removeFuture = async (ticker: string): Promise<RowDataPacket[]> => {
   const removeUserQuery = `
@@ -57,4 +57,15 @@ export const listFutures = async (): Promise<RowDataPacket[]> => {
   const results = await runQuery(query)
   console.log('listed users' + JSON.stringify(results))
   return results
+}
+
+export const getFutureId = async (ticker: string): Promise<number> => {
+  const query = `
+    Select FutureId FROM Futures WHERE TICKER = ?;
+  `
+  const parameters = [ticker]
+  const results = await runQuery(query, parameters)
+  console.log('get future' + JSON.stringify(results))
+  const result = results[0] as FutureResult
+  return result.FutureId
 }

@@ -33,8 +33,8 @@ CREATE TABLE Users (
   InGameName VARCHAR(255) NOT NULL UNIQUE,
   DiscordId VARCHAR(255) NOT NULL UNIQUE,
   DiscordName VARCHAR(255) NOT NULL,
-  SettledBalance VARCHAR(255) NOT NULL,
-  UnSettledBalance VARCHAR(255),
+  SettledBalance INT NOT NULL,
+  UnSettledBalance INT,
   Frozen TINYINT
 );`
 
@@ -62,7 +62,10 @@ CREATE TABLE Orders (
   OrderId INT AUTO_INCREMENT PRIMARY KEY,
   OrderUserId INT NOT NULL,
   FOREIGN KEY (OrderUserId) REFERENCES Users(UserId),
-  OrderDate DATETIME NOT NULL
+  OrderDate DATETIME NOT NULL,
+  OrderFutureId INT NOT NULL,
+  FOREGIN KEY (OrderFutureId) REFERENCES Users(UserId),
+  Quantity INT NOT NULL
 );`
 
 connection.query(createOrdersTable, (error, results) => {
