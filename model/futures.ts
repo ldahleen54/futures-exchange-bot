@@ -17,8 +17,13 @@ export const tickerExists = async (ticker: string): Promise<boolean> => {
         ) AS FutureExists;
   `
   const parameters = [ticker]
-  const results = await runQuery(query, parameters)
-  return results[0].FutureExists !== 0
+  try {
+    const results = await runQuery(query, parameters)
+    return results[0].FutureExists !== 0
+  } catch (error) {
+    console.log('Error running query: ' + JSON.stringify(error))
+    throw error
+  }
 }
 
 // returns null if user already exists

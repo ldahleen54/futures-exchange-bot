@@ -31,8 +31,13 @@ export const discordNameExists = async (discordName: string): Promise<boolean> =
         ) AS userExists;
     `
   const parameters = [discordName]
-  const results = await runQuery(query, parameters)
-  return results[0].userExists !== 0
+  try {
+    const results = await runQuery(query, parameters)
+    return results[0].userExists !== 0
+  } catch (error) {
+    console.log('Error running query: ' + JSON.stringify(error))
+    throw error
+  }
 }
 
 export const getUserIdByDiscordId = async (discordId: string): Promise<number> => {
