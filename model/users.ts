@@ -90,11 +90,3 @@ export const listUsers = async (): Promise<RowDataPacket[]> => {
   console.log('listed users' + JSON.stringify(listedUsers))
   return listedUsers
 }
-
-module.exports = {
-  removeUser,
-  addUser,
-  listUsers,
-  inGameNameExists,
-  discordNameExists
-}
