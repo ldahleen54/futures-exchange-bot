@@ -21,11 +21,15 @@ export const showTables = async (): Promise<void> => {
 
 export const runQuery = async (query: string, parameters?: Array<string | number>): Promise<RowDataPacket[]> => {
   return await new Promise((resolve, reject) => {
+    console.log('running query')
     if (parameters !== undefined) {
+      console.log('running query with params')
       connection.query(query, parameters, (error: QueryError | null, results: RowDataPacket[]) => {
         if (error !== null) {
+          console.log('rejecting query with error' + JSON.stringify(error))
           reject(error)
         } else {
+          console.log('resolving query with results: ' + JSON.stringify(results))
           resolve(results)
         }
       })
