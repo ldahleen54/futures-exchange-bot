@@ -19,14 +19,19 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
         ?
     )
   `
-  const userId = await getUserIdByDiscordId(discordId)
-  const futureId = await getFutureId(ticker)
-  // TODO verify date is accurate
-  const date = new Date()
-  const parameters = [userId, date.toDateString(), futureId, multiple]
-  const results = await runQuery(addOrderQuery, parameters)
-  const orderId = results[0].OrderId
-  return orderId
+  try {
+    const userId = await getUserIdByDiscordId(discordId)
+    const futureId = await getFutureId(ticker)
+     // TODO verify date is accurate
+    const date = new Date()
+    const parameters = [userId, date.toDateString(), futureId, multiple]
+    const results = await runQuery(addOrderQuery, parameters)
+    const orderId = results[0].OrderId
+    return orderId
+  } catch (error) {
+    console.log('Error received in createOrder function: ' + JSON.stringify(error))
+    throw error
+  }
 }
 
 export const listOrders = async (): Promise<RowDataPacket[]> => {
