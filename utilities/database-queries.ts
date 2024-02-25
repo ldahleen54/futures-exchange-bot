@@ -35,9 +35,12 @@ export const runQuery = async (query: string, parameters?: Array<string | number
       })
     } else {
       connection.query(query, (error: QueryError | null, results: RowDataPacket[]) => {
+        console.log('running query without params')
         if (error !== null) {
+          console.log('rejecting query with error' + JSON.stringify(error))
           reject(error)
         } else {
+          console.log('resolving query with results: ' + JSON.stringify(results))
           resolve(results)
         }
       })
