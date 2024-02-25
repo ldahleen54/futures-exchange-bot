@@ -41,12 +41,13 @@ export const discordNameExists = async (discordName: string): Promise<boolean> =
 }
 
 export const getUserIdByDiscordId = async (discordId: string): Promise<number> => {
+  console.log('inside get user id by discord id ' + discordId)
   const getUserIdQuery = `
     SELECT UserId FROM Users WHERE DiscordId = ?;
   `
   const parameters = [discordId]
+  console.log(' running query with params: ' + JSON.stringify(parameters))
   try {
-    console.log(' running query with params: ' + JSON.stringify(parameters))
     const results = await runQuery(getUserIdQuery, parameters)
     console.log('get user id results' + JSON.stringify(results))
     const result = results[0] as UserResult
