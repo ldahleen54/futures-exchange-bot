@@ -30,6 +30,7 @@ module.exports = {
         await interaction.reply('Please register using the command /register <ingamename>')
       }
     } catch (error) {
+      console.log('Error received: ' + JSON.stringify(error))
       await interaction.reply(`Error processing the order: ${interaction.options.getString('ticker')}`)
     }
 	}
