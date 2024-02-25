@@ -47,6 +47,7 @@ export const getUserIdByDiscordId = async (discordId: string): Promise<number> =
   `
   const parameters = [discordId]
   console.log(' running query with params: ' + JSON.stringify(parameters))
+  return 0
   // try {
   //   const results = await runQuery(getUserIdQuery, parameters)
   //   console.log('get user id results' + JSON.stringify(results))
