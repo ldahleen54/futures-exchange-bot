@@ -19,8 +19,8 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
         ?
     )
   `
-  const futureId = await getFutureId(ticker)
   const userId = await getUserIdByDiscordId(discordId)
+  const futureId = await getFutureId(ticker)
   // TODO verify date is accurate
   const date = new Date()
   const parameters = [userId, date.toDateString(), futureId, multiple]
