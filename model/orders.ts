@@ -20,6 +20,7 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
     )
   `
   try {
+    console.log('disord id recieved: ' + discordId)
     const userId = await getUserIdByDiscordId(discordId)
     console.log('recieved userId: ' + userId)
     const futureId = await getFutureId(ticker)
