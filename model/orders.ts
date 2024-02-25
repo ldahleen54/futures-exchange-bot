@@ -21,7 +21,9 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
   `
   try {
     const userId = await getUserIdByDiscordId(discordId)
+    console.log('recieved userId: ' + userId)
     const futureId = await getFutureId(ticker)
+    console.log('recieved futureId: ' + futureId)
      // TODO verify date is accurate
     const date = new Date()
     const parameters = [userId, date.toDateString(), futureId, multiple]
