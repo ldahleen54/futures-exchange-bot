@@ -30,8 +30,8 @@ module.exports = {
       } else {
         await interaction.reply('Please register using the command /register <ingamename>')
       }
-    } catch (error) {
-      console.log('Error received when running buy command: ' + JSON.stringify(error))
+    } catch (error: unknown) {
+      console.log('Error received when running buy command: ' + JSON.stringify((error as Error).message))
       await interaction.reply(`Error processing the order: ${interaction.options.getString('ticker')}`)
     }
 	}
