@@ -22,8 +22,8 @@ module.exports = {
       if (await discordNameExists(interaction.user.globalName ?? '')) {
         if (await tickerExists(interaction.options.getString('ticker') ?? '')) {
           console.log('confirmed ticker exists and discord name existts')
-          // const orderId = await createOrder(interaction.user.id, interaction.options.getString('ticker') ?? '', interaction.options.getNumber('amount') ?? -1)
-          await interaction.reply(`Order has been created with Order Number: -1`)
+          const orderId = await createOrder(interaction.user.id, interaction.options.getString('ticker') ?? '', interaction.options.getNumber('amount') ?? -1)
+          await interaction.reply(`Order has been created with Order Number: ${orderId}`)
         } else {
           await interaction.reply(`Future with the ticker ${interaction.options.getString('ticker') ?? ''} does not exist`)
         }

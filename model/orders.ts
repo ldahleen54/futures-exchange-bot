@@ -31,6 +31,7 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
     const parameters = [userId, date.toDateString(), futureId, multiple]
     console.log('parameters passed in: ' + JSON.stringify(parameters))
     const results = await runQuery(addOrderQuery, parameters)
+    console.log('results after creating an order' + JSON.stringify(results))
     const orderId = results[0].OrderId
     return orderId
   } catch (error) {
