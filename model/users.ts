@@ -35,7 +35,7 @@ export const discordNameExists = async (discordName: string): Promise<boolean> =
     const results = await runQuery(query, parameters)
     return results[0].userExists !== 0
   } catch (error) {
-    console.log('Error in discordNameExists:' + JSON.stringify(error))
+    console.log('Error in discordNameExists: ' + JSON.stringify(error))
     throw error
   }
 }
@@ -46,13 +46,15 @@ export const getUserIdByDiscordId = async (discordId: string): Promise<number> =
     SELECT UserId FROM Users WHERE DiscordId = ?;
   `
   const parameters = [discordId]
-  const results = await runQuery(getUserIdQuery, parameters).catch((error) => {
+  try {
+    const results = await runQuery(getUserIdQuery, parameters)
+    console.log('get user id results' + JSON.stringify(results))
+    const result = results[0] as UserResult
+    return result.UserId
+  } catch (error) {
     console.log('Error in getUserIdByDiscordId: ' + JSON.stringify(error))
     throw error
-  })
-  console.log('get user id results' + JSON.stringify(results))
-  const result = results[0] as UserResult
-  return result.UserId
+  }
 }
 
 // returns null if user already exists
