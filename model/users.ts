@@ -46,17 +46,15 @@ export const getUserIdByDiscordId = async (discordId: string): Promise<number> =
     SELECT UserId FROM Users WHERE DiscordId = ?;
   `
   const parameters = [discordId]
-  console.log(' running query with params: ' + JSON.stringify(parameters))
-  return 0
-  // try {
-  //   const results = await runQuery(getUserIdQuery, parameters)
-  //   console.log('get user id results' + JSON.stringify(results))
-  //   const result = results[0] as UserResult
-  //   return result.UserId
-  // } catch (error) {
-  //   console.log('Error running query: ' + JSON.stringify(error))
-  //   throw error
-  // }
+  try {
+    const results = await runQuery(getUserIdQuery, parameters)
+    console.log('get user id results' + JSON.stringify(results))
+    const result = results[0] as UserResult
+    return result.UserId
+  } catch (error) {
+    console.log('Error running query: ' + JSON.stringify(error))
+    throw error
+  }
 }
 
 // returns null if user already exists
