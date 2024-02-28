@@ -30,7 +30,7 @@ export const runQuery = async (query: string, parameters?: Array<string | number
           reject(error)
         } else {
           console.log('resolving query with results: ' + JSON.stringify(results))
-          return results
+          resolve(results)
         }
       })
     } else {
@@ -41,7 +41,7 @@ export const runQuery = async (query: string, parameters?: Array<string | number
           reject(error)
         } else {
           console.log('resolving query with results: ' + JSON.stringify(results))
-          return results
+          resolve(results)
         }
       })
     }
