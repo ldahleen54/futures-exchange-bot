@@ -11,7 +11,7 @@ module.exports = {
       void interaction.reply('List of users ' + JSON.stringify(userList))
       console.log('listing orders ' + JSON.stringify(userList))
     } catch (error) {
-      console.log('Error: ' + JSON.stringify(error))
+      console.log('Error from command execution: ' + JSON.stringify(error))
       await interaction.reply('Unable to list users')
     }
 	}
