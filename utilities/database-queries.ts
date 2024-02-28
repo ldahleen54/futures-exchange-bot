@@ -1,4 +1,4 @@
-import mysql, { type QueryError, type RowDataPacket } from 'mysql'
+import mysql, { type OkPacket, type QueryError, type RowDataPacket } from 'mysql'
 
 const connection = mysql.createConnection({
   host: 'database-1.cqiwllz59ycr.us-east-2.rds.amazonaws.com',
@@ -19,7 +19,7 @@ export const showTables = async (): Promise<void> => {
   }
 }
 
-export const runQuery = async (query: string, parameters?: Array<string | number>): Promise<RowDataPacket[]> => {
+export const runQuery = async (query: string, parameters?: Array<string | number>): Promise<RowDataPacket[] | OkPacket> => {
   return await new Promise((resolve, reject) => {
     console.log('running query')
     if (parameters !== undefined) {
