@@ -30,8 +30,8 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
     console.log('results after creating an order ' + JSON.stringify(results))
     const orderId = results[0].insertId
     return orderId
-  } catch (error) {
-    console.log('Error received in createOrder function: ' + JSON.stringify(error))
+  } catch (error: unknown) {
+    console.log('Error received in createOrder function: ' + JSON.stringify((error as Error).message))
     throw error
   }
 }
