@@ -21,18 +21,14 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
   `
 
   try {
-    console.log('disord id recieved: ' + discordId)
     const userId = await getUserIdByDiscordId(discordId)
-    console.log('recieved userId: ' + userId)
     const futureId = await getFutureId(ticker)
-    console.log('recieved futureId: ' + futureId)
      // TODO verify date is accurate
     const date = new Date()
     const parameters = [userId, date.toDateString(), futureId, multiple]
-    console.log('parameters passed in: ' + JSON.stringify(parameters))
     const results = await runQuery(addOrderQuery, parameters)
-    console.log('results after creating an order' + JSON.stringify(results))
-    const orderId = results[0].OrderId
+    console.log('results after creating an order ' + JSON.stringify(results))
+    const orderId = results[0].insertId
     return orderId
   } catch (error) {
     console.log('Error received in createOrder function: ' + JSON.stringify(error))
