@@ -1,8 +1,8 @@
 import { runQuery } from '../utilities/database-queries.js'
 import { type UserResult, type User } from '../types/User'
-import { type RowDataPacket } from 'mysql'
+import { type OkPacket, type RowDataPacket } from 'mysql'
 
-export const removeUser = async (user: User): Promise<RowDataPacket[]> => {
+export const removeUser = async (user: User): Promise<RowDataPacket[] | OkPacket> => {
   const removeUserQuery = `
     DELETE FROM Users WHERE InGameName = ?
   `
@@ -80,7 +80,7 @@ export const addUser = async (user: User): Promise<RowDataPacket[] | null> => {
   return await runQuery(addUserQuery, parameters)
 }
 
-export const listUsers = async (): Promise<RowDataPacket[]> => {
+export const listUsers = async (): Promise<RowDataPacket[] | OkPacket> => {
   const listUserQuery = `
     SELECT * FROM Users;
   `

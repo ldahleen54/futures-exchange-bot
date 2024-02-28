@@ -1,8 +1,8 @@
-import { type RowDataPacket } from 'mysql'
+import { type OkPacket, type RowDataPacket } from 'mysql'
 import { runQuery } from '../utilities/database-queries.js'
 import { type FutureResult, type Future } from '../types/Future.js'
 
-export const removeFuture = async (ticker: string): Promise<RowDataPacket[]> => {
+export const removeFuture = async (ticker: string): Promise<RowDataPacket[] | OkPacket> => {
   const removeUserQuery = `
     DELETE FROM Futures WHERE Ticker = ?
   `
@@ -55,7 +55,7 @@ export const addFuture = async (future: Future): Promise<RowDataPacket[] | null>
   return await runQuery(addFutureQuery, parameters)
 }
 
-export const listFutures = async (): Promise<RowDataPacket[]> => {
+export const listFutures = async (): Promise<RowDataPacket[] | OkPacket> => {
   const query = `
     Select * FROM Futures;
   `

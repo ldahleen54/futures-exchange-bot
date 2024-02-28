@@ -1,4 +1,4 @@
-import { type RowDataPacket } from 'mysql'
+import { type OkPacket, type RowDataPacket } from 'mysql'
 import { runQuery } from '../utilities/database-queries.js'
 import { getFutureId } from './futures'
 import { getUserIdByDiscordId } from './users'
@@ -36,7 +36,7 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
   }
 }
 
-export const listOrders = async (): Promise<RowDataPacket[]> => {
+export const listOrders = async (): Promise<RowDataPacket[] | OkPacket> => {
   const query = `
     Select * FROM Orders;
   `
