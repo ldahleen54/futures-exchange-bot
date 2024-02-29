@@ -48,7 +48,7 @@ export const createSellOrder = async (discordId: string, ticker: string, multipl
     )
     VALUES (
         ?,
-        'MarketSell'
+        'MarketSell',
         ?,
         ?,
         ?
