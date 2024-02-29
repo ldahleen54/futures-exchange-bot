@@ -7,9 +7,9 @@ const connection = createConnection({
   password: process.env.DB_PASSWORD
 })
 
-connection.connect(error => {
+connection.connect((error) => {
   if (error !== undefined) {
-    console.error('An error occurred while connecting to the DB:', error)
+    console.error('An error occurred while connecting to the DB:', (error as Error).message)
     return
   }
   console.log('Connected to the database successfully!')
