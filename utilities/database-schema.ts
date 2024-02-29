@@ -8,7 +8,7 @@ const connection = createConnection({
 })
 
 connection.connect((error) => {
-  if (error !== undefined) {
+  if (error !== null) {
     console.error('An error occurred while connecting to the DB:', (error as Error).message)
     return
   }
@@ -19,8 +19,8 @@ const dropTables = `
   DROP TABLE Orders, Users, Futures
 `
 connection.query(dropTables, (error, results) => {
-  if (error !== undefined) {
-    console.error('Error Dropping tables:', error)
+  if (error !== null) {
+    console.error('Error Dropping tables:', (error as Error).message)
     return
   }
   console.log('Dropped tables: ' + JSON.stringify(results))
@@ -37,8 +37,8 @@ CREATE TABLE Users (
   Frozen TINYINT
 );`
 connection.query(createUsersTable, (error, results) => {
-  if (error !== undefined) {
-    console.error('Error creating Users table:', error)
+  if (error !== null) {
+    console.error('Error creating Users table:', (error as Error).message)
     return
   }
   console.log('Creating users table' + JSON.stringify(results))
@@ -48,8 +48,8 @@ const checkUsersTable = `
   SELECT * FROM Users;
 `
 connection.query(checkUsersTable, (error, results) => {
-  if (error !== undefined) {
-    console.error('Error showing Users table:', error)
+  if (error !== null) {
+    console.error('Error showing Users table:', (error as Error).message)
     return
   }
   console.log('Showing users table' + JSON.stringify(results))
@@ -66,8 +66,8 @@ CREATE TABLE Futures (
   Premium DECIMAL(50,4) NOT NULL
 );`
 connection.query(createFuturesTable, (error, results) => {
-  if (error !== undefined) {
-    console.error('Error creating Futures table:', error)
+  if (error !== null) {
+    console.error('Error creating Futures table:', (error as Error).message)
     return
   }
   console.log('Futures table created or already exists.' + JSON.stringify(results))
@@ -85,8 +85,8 @@ CREATE TABLE Orders (
   Quantity INT NOT NULL
 );`
 connection.query(createOrdersTable, (error, results) => {
-  if (error !== undefined) {
-    console.error('Error creating Orders table:', error)
+  if (error !== null) {
+    console.error('Error creating Orders table:', (error as Error).message)
     return
   }
   console.log('Orders table created or already exists.' + JSON.stringify(results))
@@ -96,8 +96,8 @@ const showTables = `
 SHOW TABLES;
 `
 connection.query(showTables, (error, results) => {
-  if (error !== undefined) {
-    console.error('Error creating Users table:', error)
+  if (error !== null) {
+    console.error('Error creating Users table:', (error as Error).message)
     return
   }
   console.log('Tables: ' + JSON.stringify(results))
