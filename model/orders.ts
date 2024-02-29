@@ -26,7 +26,7 @@ export const createOrder = async (discordId: string, ticker: string, multiple: n
      // TODO verify date is accurate
     const date = new Date()
     const parameters = [userId, date.toDateString(), futureId, multiple]
-    const results = await runQuery(addOrderQuery, parameters)
+    const results = (await runQuery(addOrderQuery, parameters) as OkPacket)
     console.log('results after creating an order ' + JSON.stringify(results))
     const orderId = results.insertId
     return orderId

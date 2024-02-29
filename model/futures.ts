@@ -19,7 +19,7 @@ export const tickerExists = async (ticker: string): Promise<boolean> => {
   const parameters = [ticker]
   try {
     const results = await runQuery(query, parameters)
-    return results[0].FutureExists !== 0
+    return (results as RowDataPacket[])[0].FutureExists !== 0
   } catch (error) {
     console.log('Error running query: ' + JSON.stringify(error))
     throw error
@@ -27,7 +27,7 @@ export const tickerExists = async (ticker: string): Promise<boolean> => {
 }
 
 // returns null if user already exists
-export const addFuture = async (future: Future): Promise<RowDataPacket[] | null> => {
+export const addFuture = async (future: Future): Promise<RowDataPacket[] | OkPacket | null> => {
   const addFutureQuery = `
     INSERT INTO Futures ( 
         Ticker,
@@ -52,7 +52,7 @@ export const addFuture = async (future: Future): Promise<RowDataPacket[] | null>
   if (exists) {
     return null
   }
-  return await runQuery(addFutureQuery, parameters)
+  return (await runQuery(addFutureQuery, parameters) as OkPacket)
 }
 
 export const listFutures = async (): Promise<RowDataPacket[] | OkPacket> => {
@@ -71,6 +71,6 @@ export const getFutureId = async (ticker: string): Promise<number> => {
   const parameters = [ticker]
   const results = await runQuery(query, parameters)
   console.log('get future' + JSON.stringify(results))
-  const result = results[0] as FutureResult
+  const result = (results as RowDataPacket[])[0] as FutureResult
   return result.FutureId
 }

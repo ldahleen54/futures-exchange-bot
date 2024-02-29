@@ -36,7 +36,6 @@ CREATE TABLE Users (
   UnSettledBalance INT,
   Frozen TINYINT
 );`
-
 connection.query(createUsersTable, (error, results) => {
   if (error !== undefined) {
     console.error('Error creating Users table:', error)
@@ -66,7 +65,6 @@ CREATE TABLE Futures (
   Quantity INT NOT NULL,
   Premium DECIMAL(50,4) NOT NULL
 );`
-
 connection.query(createFuturesTable, (error, results) => {
   if (error !== undefined) {
     console.error('Error creating Futures table:', error)
@@ -85,7 +83,6 @@ CREATE TABLE Orders (
   FOREIGN KEY (OrderFutureId) REFERENCES Futures(FutureId),
   Quantity INT NOT NULL
 );`
-
 connection.query(createOrdersTable, (error, results) => {
   if (error !== undefined) {
     console.error('Error creating Orders table:', error)
@@ -97,7 +94,6 @@ connection.query(createOrdersTable, (error, results) => {
 const showTables = `
 SHOW TABLES;
 `
-
 connection.query(showTables, (error, results) => {
   if (error !== undefined) {
     console.error('Error creating Users table:', error)

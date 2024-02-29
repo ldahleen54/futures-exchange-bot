@@ -20,7 +20,7 @@ export const inGameNameExists = async (inGameName: string): Promise<boolean> => 
       ) AS userExists;
     `
   const parameters = [inGameName]
-  const results = await runQuery(query, parameters)
+  const results = (await runQuery(query, parameters) as RowDataPacket[])
   return results[0].userExists !== 0
 }
 
@@ -32,7 +32,7 @@ export const discordNameExists = async (discordName: string): Promise<boolean> =
     `
   const parameters = [discordName]
   try {
-    const results = await runQuery(query, parameters)
+    const results = (await runQuery(query, parameters) as RowDataPacket[])
     return results[0].userExists !== 0
   } catch (error) {
     console.log('Error in discordNameExists: ' + JSON.stringify(error))
@@ -47,7 +47,7 @@ export const getUserIdByDiscordId = async (discordId: string): Promise<number> =
   `
   const parameters = [discordId]
   try {
-    const results = await runQuery(getUserIdQuery, parameters)
+    const results = (await runQuery(getUserIdQuery, parameters) as RowDataPacket[])
     console.log('get user id results' + JSON.stringify(results))
     const result = results[0] as UserResult
     return result.UserId
@@ -58,7 +58,7 @@ export const getUserIdByDiscordId = async (discordId: string): Promise<number> =
 }
 
 // returns null if user already exists
-export const addUser = async (user: User): Promise<RowDataPacket[] | null> => {
+export const addUser = async (user: User): Promise<OkPacket | null> => {
   const addUserQuery = `
         INSERT INTO Users ( 
             InGameName,
@@ -77,7 +77,7 @@ export const addUser = async (user: User): Promise<RowDataPacket[] | null> => {
   if (await inGameNameExists(user.inGameName) || await discordNameExists(user.discordName)) {
     return null
   }
-  return await runQuery(addUserQuery, parameters)
+  return (await runQuery(addUserQuery, parameters) as OkPacket)
 }
 
 export const listUsers = async (): Promise<RowDataPacket[] | OkPacket> => {
