@@ -16,7 +16,7 @@ connection.connect(error => {
 })
 
 const dropTables = `
-  DROP TABLE Users, Futures
+  DROP TABLE Orders, Users, Futures
 `
 connection.query(dropTables, (error, results) => {
   if (error !== undefined) {
