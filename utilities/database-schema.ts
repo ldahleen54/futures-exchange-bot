@@ -76,6 +76,7 @@ connection.query(createFuturesTable, (error, results) => {
 const createOrdersTable = `
 CREATE TABLE Orders (
   OrderId INT AUTO_INCREMENT PRIMARY KEY,
+  OrderType VARCHAR(255) NOT NULL,
   OrderUserId INT NOT NULL,
   FOREIGN KEY (OrderUserId) REFERENCES Users(UserId),
   OrderDate DATETIME NOT NULL,
