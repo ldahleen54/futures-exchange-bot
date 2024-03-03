@@ -1,7 +1,7 @@
 /* eslint-disable no-tabs */
 import fs from 'node:fs'
 import path from 'path'
-import { Client, Events, GatewayIntentBits, SlashCommandBuilder, type ChatInputCommandInteraction, type Interaction } from 'discord.js'
+import { Client, Events, GatewayIntentBits, SlashCommandBuilder, type ChatInputCommandInteraction, type Interaction, REST, Routes } from 'discord.js'
 import { listUsers } from './model/users.js'
 
 console.log('testing')
@@ -28,6 +28,31 @@ const commands = new Map<string, Command>()
 const foldersPath = path.join(__dirname, 'commands')
 const commandFolders = fs.readdirSync(foldersPath)
 
+// Function to clear all existing guild commands
+async function clearGuildCommands() {
+  const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN as string);
+
+  try {
+    console.log('Started refreshing application (/) commands.')
+
+    const fetchedCommands = await rest.get(
+      Routes.applicationGuildCommands(process.env.CLIENT_ID as string, process.env.GUILD_ID as string)
+    ) as any[];
+
+    console.log(`Found ${fetchedCommands.length} commands. Deleting...`)
+
+    for (const command of fetchedCommands) {
+      await rest.delete(
+        Routes.applicationGuildCommand(process.env.CLIENT_ID as string, process.env.GUILD_ID as string, command.id)
+      );
+    }
+
+    console.log('Successfully deleted all guild commands.');
+  } catch (error) {
+    console.error('Failed to delete guild commands:', error);
+  }
+}
+
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder)
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
@@ -41,7 +66,8 @@ for (const folder of commandFolders) {
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
-client.once(Events.ClientReady, readyClient => {
+client.once(Events.ClientReady, async readyClient => {
+	await clearGuildCommands()
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`)
 })
 
