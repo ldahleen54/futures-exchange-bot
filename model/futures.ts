@@ -74,3 +74,24 @@ export const getFutureId = async (ticker: string): Promise<number> => {
   const result = (results as RowDataPacket[])[0] as FutureResult
   return result.FutureId
 }
+
+// strike price x 100
+export const getPrice = async (ticker: string): Promise<number> => {
+  const strikePriceQuery = `
+    Select StrikePrice FROM Futures WHERE Ticker = ?;
+  `
+  const parameters = [ticker]
+  const results = await runQuery(strikePriceQuery, parameters)
+  const result = (results as RowDataPacket[])[0] as FutureResult
+  return result.StrikePrice * 100
+}
+
+export const getPremium = async (ticker: string): Promise<number> => {
+  const premiumQuery = `
+    Select Premium FROM Futures WHERE Ticker = ?;
+  `
+  const parameters = [ticker]
+  const results = await runQuery(premiumQuery, parameters)
+  const result = (results as RowDataPacket[])[0] as FutureResult
+  return result.Premium
+}

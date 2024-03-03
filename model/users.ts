@@ -91,7 +91,7 @@ export const listUsers = async (): Promise<RowDataPacket[] | OkPacket> => {
 
 export const getBuyingPower = async (discordId: string): Promise<number> => {
   const settledBalanceQuery = `
-    SELECT SettledBalance FROM Users WHERE DiscordId = ?
+    SELECT SettledBalance FROM Users WHERE DiscordId = ?;
   `
   const parameters = [discordId]
   const results = (await runQuery(settledBalanceQuery, parameters) as RowDataPacket[])

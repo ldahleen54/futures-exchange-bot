@@ -1,6 +1,6 @@
 import { type OkPacket, type RowDataPacket } from 'mysql'
 import { runQuery } from '../utilities/database-queries.js'
-import { getFutureId } from './futures'
+import { getFutureId, getPremium, getPrice } from './futures'
 import { getUserIdByDiscordId } from './users'
 
 // returns the order number for customer support
@@ -77,4 +77,10 @@ export const listOrders = async (): Promise<RowDataPacket[] | OkPacket> => {
   const results = await runQuery(query)
   console.log('listed users' + JSON.stringify(results))
   return results
+}
+
+export const calculateBuyOrderCost = async (ticker: string, quantity: number): Promise<number> => {
+  const price = await getPrice(ticker)
+  const premium = await getPremium(ticker)
+  return (price * 100 * quantity) + premium
 }
