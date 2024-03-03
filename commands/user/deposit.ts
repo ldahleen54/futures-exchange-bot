@@ -29,8 +29,8 @@ module.exports = {
       }
       await interaction.reply('Unable to deposit into your account')
     } catch (error: unknown) {
-      console.log('Error received when running buy command: ' + JSON.stringify((error as Error).message))
-      await interaction.reply(`Error processing the order: ${interaction.options.getString('ticker')}`)
+      console.log('Error received when running deposit command: ' + JSON.stringify((error as Error).message))
+      await interaction.reply('We are unable to process your deposit')
     }
 	}
 }
