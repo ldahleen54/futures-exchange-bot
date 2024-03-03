@@ -80,6 +80,22 @@ export const addUser = async (user: User): Promise<OkPacket | null> => {
   return (await runQuery(addUserQuery, parameters) as OkPacket)
 }
 
+export const deposit = async (discordId: string, amount: number): Promise<OkPacket | null> => {
+  const depositQuery = `
+    UPDATE Users 
+    SET SettledBalance = SettledBalance + ? 
+    WHERE DiscordId = ?;
+  `
+  const parameters = [amount, discordId]
+  try {
+    const result = (await runQuery(depositQuery, parameters) as OkPacket)
+    return result
+  } catch (error: unknown) {
+    console.log('Error received when depositing in the model: ' + JSON.stringify((error as Error).message))
+    return null
+  }
+}
+
 export const listUsers = async (): Promise<RowDataPacket[] | OkPacket> => {
   const listUserQuery = `
     SELECT * FROM Users;
