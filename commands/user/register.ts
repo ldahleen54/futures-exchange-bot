@@ -25,7 +25,7 @@ module.exports = {
 				console.log('Unable to register user with error' + JSON.stringify(error))
 				await interaction.reply('Unable to register user')
 			}
-			await interaction.reply('Registered with the new name')
+			await interaction.reply(`Registered with the name ${interaction.options.getString('ingamename')}`)
 		} else if (!(await discordNameExists(interaction.options.getString('ingamename') ?? ''))) {
 			await interaction.reply(`User is already registered with this discord name: ${interaction.options.getString('discordname')}`)
 		} else {
