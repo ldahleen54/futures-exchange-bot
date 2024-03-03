@@ -88,3 +88,17 @@ export const listUsers = async (): Promise<RowDataPacket[] | OkPacket> => {
   console.log('listed users' + JSON.stringify(listedUsers))
   return listedUsers
 }
+
+export const getBuyingPower = async (discordId: string): Promise<number> => {
+  const settledBalanceQuery = `
+    SELECT SettledBalance FROM Users WHERE DiscordId = ?
+  `
+  const parameters = [discordId]
+  const results = (await runQuery(settledBalanceQuery, parameters) as RowDataPacket[])
+  const user = results[0] as UserResult
+  return user.SettledBalance
+}
+
+// export const getSellingPower = async (): Promise<number> => {
+  
+// }

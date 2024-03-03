@@ -1,7 +1,7 @@
 /* eslint-disable no-tabs */
 import { type ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
 import { createBuyOrder } from '../../model/orders'
-import { discordNameExists } from '../../model/users'
+import { discordNameExists, getBuyingPower } from '../../model/users'
 import { tickerExists } from '../../model/futures'
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -20,6 +20,10 @@ module.exports = {
 	async execute (interaction: ChatInputCommandInteraction) {
     try {
       if (await discordNameExists(interaction.user.globalName ?? '')) {
+        if (await getBuyingPower(interaction.user.id) <= 0) {
+          await interaction.reply('This order exceeds your buying power')
+          return
+        }
         if (await tickerExists(interaction.options.getString('ticker') ?? '')) {
           const orderId = await createBuyOrder(interaction.user.id, interaction.options.getString('ticker') ?? '', interaction.options.getNumber('amount') ?? -1)
           await interaction.reply(`Order to buy ${interaction.options.getString('ticker')} has been created with orderId: ${orderId}`)
