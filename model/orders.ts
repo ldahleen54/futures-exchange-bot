@@ -82,5 +82,5 @@ export const listOrders = async (): Promise<RowDataPacket[] | OkPacket> => {
 export const calculateBuyOrderCost = async (ticker: string, quantity: number): Promise<number> => {
   const price = await getPrice(ticker)
   const premium = await getPremium(ticker)
-  return (price * 100 * quantity) + premium
+  return (price * 100 * quantity) + (premium * quantity)
 }
