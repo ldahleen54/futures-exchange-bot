@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Importing modules using ES6 syntax
 import { REST } from 'discord.js'
 import { Routes } from 'discord-api-types/v9'
@@ -39,17 +40,19 @@ const commandFolders = fs.readdirSync(foldersPath)
 const clearCommands = async () => {
     try {
         // Fetch the list of all commands for the guild
-        const commands = await rest.get(
+        const fetchedCommands = await rest.get(
             Routes.applicationGuildCommands(process.env.CLIENT_ID as string, process.env.GUILD_ID as string)
-        )
+        ) as any[]
 
         // Delete all commands for the guild
-        for (const command of commands) {
-            await rest.delete(
+        const deletePromises = fetchedCommands.map(command => 
+            rest.delete(
                 Routes.applicationGuildCommand(process.env.CLIENT_ID as string, process.env.GUILD_ID as string, command.id)
             )
-        }
-        console.log('Successfully deleted all guild commands.')
+        )
+
+        await Promise.all(deletePromises);
+        console.log('Successfully deleted all guild commands.');
     } catch (error) {
         console.error('Failed to delete guild commands:', error)
     }
