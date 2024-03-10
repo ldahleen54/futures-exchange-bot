@@ -29,29 +29,29 @@ const foldersPath = path.join(__dirname, 'commands')
 const commandFolders = fs.readdirSync(foldersPath)
 
 // Function to clear all existing guild commands
-async function clearGuildCommands() {
-  const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN as string);
+// async function clearGuildCommands() {
+//   const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN as string);
 
-  try {
-    console.log('Started refreshing application (/) commands.')
+//   try {
+//     console.log('Started refreshing application (/) commands.')
 
-    const fetchedCommands = await rest.get(
-      Routes.applicationGuildCommands(process.env.CLIENT_ID as string, process.env.GUILD_ID as string)
-    ) as any[];
+//     const fetchedCommands = await rest.get(
+//       Routes.applicationGuildCommands(process.env.CLIENT_ID as string, process.env.GUILD_ID as string)
+//     ) as any[];
 
-    console.log(`Found ${fetchedCommands.length} commands. Deleting...`)
+//     console.log(`Found ${fetchedCommands.length} commands. Deleting...`)
 
-    for (const command of fetchedCommands) {
-      await rest.delete(
-        Routes.applicationGuildCommand(process.env.CLIENT_ID as string, process.env.GUILD_ID as string, command.id)
-      );
-    }
+//     for (const command of fetchedCommands) {
+//       await rest.delete(
+//         Routes.applicationGuildCommand(process.env.CLIENT_ID as string, process.env.GUILD_ID as string, command.id)
+//       );
+//     }
 
-    console.log('Successfully deleted all guild commands.');
-  } catch (error) {
-    console.error('Failed to delete guild commands:', error);
-  }
-}
+//     console.log('Successfully deleted all guild commands.');
+//   } catch (error) {
+//     console.error('Failed to delete guild commands:', error);
+//   }
+// }
 
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder)
@@ -67,7 +67,7 @@ for (const folder of commandFolders) {
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
 client.once(Events.ClientReady, async readyClient => {
-	await clearGuildCommands()
+	// await clearGuildCommands()
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`)
 })
 
