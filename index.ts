@@ -64,6 +64,9 @@ for (const folder of commandFolders) {
 	}
 }
 
+// Construct and prepare an instance of the REST module
+const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
+
 (async () => {
 	try {
 		const data = await rest.put(
