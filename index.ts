@@ -27,7 +27,7 @@ const commands = new Map<string, Command>()
 const commandsArray = new Array<unknown>()
 
 const foldersPath = path.join(__dirname, 'commands')
-const commandFolders = fs.readdirSync(foldersPath)
+const commandFolders = fs.readdirSync(foldersPath);
 
 // Function to clear all existing guild commands
 // async function clearGuildCommands() {
@@ -54,18 +54,20 @@ const commandFolders = fs.readdirSync(foldersPath)
 //   }
 // }
 
-for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder)
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
-	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file)
-		import(filePath).then((command: Command) => {
-			commands.set(command.data.name, command)
-			console.log('command name: ' + command.data.name)
-			commandsArray.push(command.data.toJSON())
-		}).catch(console.error)
+(async () => {
+	for (const folder of commandFolders) {
+		const commandsPath = path.join(foldersPath, folder)
+		const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
+		for (const file of commandFiles) {
+			const filePath = path.join(commandsPath, file)
+			await import(filePath).then((command: Command) => {
+				commands.set(command.data.name, command)
+				console.log('command name: ' + command.data.name)
+				commandsArray.push(command.data.toJSON())
+			}).catch(console.error)
+		}
 	}
-}
+})()
 
 // Construct and prepare an instance of the REST module
 const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
@@ -74,7 +76,7 @@ try {
 	console.log('command map: ' + JSON.stringify(commands))
 	console.log('commands array: ' + JSON.stringify(commandsArray))
 	const data = rest.put(
-		Routes.applicationGuildCommands(process.env.CLIENT_ID || '', process.env.GUILD_ID || ''),
+		Routes.applicationGuildCommands(process.env.CLIENT_ID ?? '', process.env.GUILD_ID ?? ''),
 		{ body: commandsArray }
 	)
 	console.log(`commands reloaded ${JSON.stringify(data)}`)
