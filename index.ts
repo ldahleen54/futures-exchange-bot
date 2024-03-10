@@ -67,24 +67,20 @@ const commandFolders = fs.readdirSync(foldersPath);
 			}).catch(console.error)
 		}
 	}
+	const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
+	try {
+		console.log('command map: ' + JSON.stringify(commands))
+		console.log('commands array: ' + JSON.stringify(commandsArray))
+		const data = await rest.put(
+			Routes.applicationGuildCommands(process.env.CLIENT_ID ?? '', process.env.GUILD_ID ?? ''),
+			{ body: commandsArray }
+		)
+		console.log(`commands reloaded ${JSON.stringify(data)}`)
+	} catch (error) {
+		console.error(error)
+	}
 })()
 
-// Construct and prepare an instance of the REST module
-const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
-
-try {
-	console.log('command map: ' + JSON.stringify(commands))
-	console.log('commands array: ' + JSON.stringify(commandsArray))
-	const data = rest.put(
-		Routes.applicationGuildCommands(process.env.CLIENT_ID ?? '', process.env.GUILD_ID ?? ''),
-		{ body: commandsArray }
-	)
-	console.log(`commands reloaded ${JSON.stringify(data)}`)
-} catch (error) {
-	console.error(error)
-}
-
-// When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
 client.once(Events.ClientReady, async readyClient => {
