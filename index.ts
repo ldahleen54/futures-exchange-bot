@@ -66,13 +66,11 @@ for (const folder of commandFolders) {
 
 (async () => {
 	try {
-		console.log(`Started refreshing ${commands.size()} application (/) commands.`)
 		const data = await rest.put(
-			Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+			Routes.applicationGuildCommands(process.env.CLIENT_ID || '', process.env.GUILD_ID || ''),
 			{ body: commands }
 		)
 		console.log(`commands reloaded ${JSON.stringify(data)}`)
-		console.log(`Successfully reloaded ${data.size()} application (/) commands.`)
 	} catch (error) {
 		console.error(error)
 	}
