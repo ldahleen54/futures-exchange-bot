@@ -24,6 +24,7 @@ void (async () => {
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
 const commands = new Map<string, Command>()
+const commandsArray = []
 
 const foldersPath = path.join(__dirname, 'commands')
 const commandFolders = fs.readdirSync(foldersPath)
@@ -60,6 +61,7 @@ for (const folder of commandFolders) {
 		const filePath = path.join(commandsPath, file)
 		import(filePath).then((command: Command) => {
 			commands.set(command.data.name, command)
+			commandsArray.push(command.data.toJSON())
 		}).catch(console.error)
 	}
 }
@@ -69,9 +71,11 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
 
 (async () => {
 	try {
+		console.log('command map: ' + JSON.stringify(commands))
+		console.log('commands array: ' + JSON.stringify(commandsArray))
 		const data = await rest.put(
 			Routes.applicationGuildCommands(process.env.CLIENT_ID || '', process.env.GUILD_ID || ''),
-			{ body: commands }
+			{ body: commandsArray }
 		)
 		console.log(`commands reloaded ${JSON.stringify(data)}`)
 	} catch (error) {
