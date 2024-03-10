@@ -24,7 +24,7 @@ void (async () => {
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
 const commands = new Map<string, Command>()
-const commandsArray = []
+const commandsArray = new Array<unknown>()
 
 const foldersPath = path.join(__dirname, 'commands')
 const commandFolders = fs.readdirSync(foldersPath)
