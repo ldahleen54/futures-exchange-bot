@@ -54,6 +54,8 @@ const commandFolders = fs.readdirSync(foldersPath);
 //   }
 // }
 
+
+
 (async () => {
 	for (const folder of commandFolders) {
 		const commandsPath = path.join(foldersPath, folder)
@@ -68,6 +70,16 @@ const commandFolders = fs.readdirSync(foldersPath);
 		}
 	}
 	const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
+
+	// for guild-based commands
+	REST.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
+	.then(() => console.log('Successfully deleted all guild commands.'))
+	.catch(console.error);
+
+	// for global commands
+	REST.put(Routes.applicationCommands(clientId), { body: [] })
+	.then(() => console.log('Successfully deleted all application commands.'))
+	.catch(console.error);
 	try {
 		console.log('command map: ' + JSON.stringify(commands))
 		console.log('commands array: ' + JSON.stringify(commandsArray))
