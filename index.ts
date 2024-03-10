@@ -64,11 +64,12 @@ const commandFolders = fs.readdirSync(foldersPath);
 			await import(filePath).then((command: Command) => {
 				commands.set(command.data.name, command)
 				console.log('command name: ' + command.data.name)
+				console.log('command stringified:\n ' + JSON.stringify(command))
 				commandsArray.push(command.data.toJSON())
 			}).catch(console.error)
 		}
 	}
-	const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
+	const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '')
 	// for guild-based commands
 	rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID ?? '', process.env.GUILD_ID ?? ''), { body: [] })
 	.then(() => console.log('Successfully deleted all guild commands.'))
