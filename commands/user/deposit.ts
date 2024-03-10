@@ -4,12 +4,12 @@ import { deposit, discordNameExists } from '../../model/users'
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('deposits')
+		.setName('deposit')
 		.setDescription('Deposit money into your account')
 		.addNumberOption(option =>
 			option
 				.setName('amount')
-				.setDescription('Amount of moneys you\'re despositing')
+				.setDescription('Amount of money you\'re despositing')
 				.setRequired(true)),
 	async execute (interaction: ChatInputCommandInteraction) {
 		try {
