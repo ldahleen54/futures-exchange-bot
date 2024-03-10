@@ -63,6 +63,21 @@ for (const folder of commandFolders) {
 		}).catch(console.error)
 	}
 }
+
+(async () => {
+	try {
+		console.log(`Started refreshing ${commands.length} application (/) commands.`)
+		const data = await rest.put(
+			Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+			{ body: commands }
+		)
+		console.log(`commands reloaded ${JSON.stringify(data)}`)
+		console.log(`Successfully reloaded ${data.length} application (/) commands.`)
+	} catch (error) {
+		console.error(error)
+	}
+})()
+
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
 // It makes some properties non-nullable.
