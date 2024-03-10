@@ -61,6 +61,7 @@ for (const folder of commandFolders) {
 		const filePath = path.join(commandsPath, file)
 		import(filePath).then((command: Command) => {
 			commands.set(command.data.name, command)
+			console.log('command name: ' + command.data.name)
 			commandsArray.push(command.data.toJSON())
 		}).catch(console.error)
 	}
