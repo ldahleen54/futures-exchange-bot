@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable no-tabs */
 import fs from 'node:fs'
 import path from 'path'
 import { Client, Events, GatewayIntentBits, SlashCommandBuilder, type ChatInputCommandInteraction, type Interaction, REST, Routes } from 'discord.js'
 import { listUsers } from './model/users.js'
 
-console.log('testing')
 export interface Command {
   data: SlashCommandBuilder
 	execute: (interaction: ChatInputCommandInteraction) => Promise<void> | void
@@ -54,8 +55,6 @@ const commandFolders = fs.readdirSync(foldersPath);
 //   }
 // }
 
-
-
 (async () => {
 	for (const folder of commandFolders) {
 		const commandsPath = path.join(foldersPath, folder)
@@ -70,16 +69,14 @@ const commandFolders = fs.readdirSync(foldersPath);
 		}
 	}
 	const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
-
 	// for guild-based commands
 	rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID ?? '', process.env.GUILD_ID ?? ''), { body: [] })
 	.then(() => console.log('Successfully deleted all guild commands.'))
-	.catch(console.error);
-
+	.catch(console.error)
 	// for global commands
 	rest.put(Routes.applicationCommands(process.env.CLIENT_ID ?? ''), { body: [] })
 	.then(() => console.log('Successfully deleted all application commands.'))
-	.catch(console.error);
+	.catch(console.error)
 	try {
 		console.log('command map: ' + JSON.stringify(commands))
 		console.log('commands array: ' + JSON.stringify(commandsArray))
@@ -114,6 +111,7 @@ client.on(Events.InteractionCreate, async (interaction: Interaction) => {
 			data: new SlashCommandBuilder(),
 			execute: () => {}
 		}
+		console.log('command stringified' + JSON.stringify(command))
 	}
 
 	try {

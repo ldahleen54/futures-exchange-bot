@@ -42,4 +42,4 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 		// And of course, make sure you catch and log any errors!
 		console.error(error);
 	}
-})();
+})()
