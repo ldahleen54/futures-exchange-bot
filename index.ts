@@ -72,12 +72,12 @@ const commandFolders = fs.readdirSync(foldersPath);
 	const rest = new REST().setToken(process.env.DISCORD_TOKEN ?? '');
 
 	// for guild-based commands
-	REST.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
+	rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID ?? '', process.env.GUILD_ID ?? ''), { body: [] })
 	.then(() => console.log('Successfully deleted all guild commands.'))
 	.catch(console.error);
 
 	// for global commands
-	REST.put(Routes.applicationCommands(clientId), { body: [] })
+	rest.put(Routes.applicationCommands(process.env.CLIENT_ID ?? ''), { body: [] })
 	.then(() => console.log('Successfully deleted all application commands.'))
 	.catch(console.error);
 	try {
