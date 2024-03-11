@@ -61,9 +61,10 @@ const commandFolders = fs.readdirSync(foldersPath);
 		const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
 		for (const file of commandFiles) {
 			const filePath = path.join(commandsPath, file)
-			await import(filePath).then((command: Command) => {
+			await import(filePath).then((command: any) => {
 				commands.set(command.data.name, command)
 				console.log('command name: ' + command.data.name)
+				// problem exists when it's added
 				console.log('command stringified:\n ' + JSON.stringify(command))
 				commandsArray.push(command.data.toJSON())
 			}).catch(console.error)
