@@ -61,7 +61,7 @@ const commandFolders = fs.readdirSync(foldersPath);
 		const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
 		for (const file of commandFiles) {
 			const filePath = path.join(commandsPath, file)
-			await import(filePath).then((command: any) => {
+			await import(filePath).then((command: Command) => {
 				commands.set(command.data.name, command)
 				console.log('command name: ' + command.data.name)
 				// problem exists when it's added
